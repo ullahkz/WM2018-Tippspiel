@@ -7,19 +7,12 @@
     </head>
     <body>
         <div class="container">        
-        <header>
-            <img src="../images/logo.png" alt="logo" width="100" height="100" id="logo">
-            <h1>FIFA Fussball-Weltmeisterschaft Russland 2018™</h1>
-            <h2>Tippspiel</h2>
-            <?php
-                require("navbar.php");
-            ?>
-           <!--Hier kommt die Navigationsleiste hin! -->
-        </header>
-
         <?php
+            require('pageheader.php');
             require("db_verbindung.php");
             session_start();
+            ?>
+            <?php
             if($_SERVER['REQUEST_METHOD'] == 'POST')
             {
                 $anmeldename = $_POST['anmeldename'];
@@ -40,8 +33,7 @@
                     }
                     else
                     {
-                        $_SESSION['ID'] = $row['ID'];
-                        echo "Anmeldung Erfolgreich!";
+                        $_SESSION['ID'] = $row['ID'];                        
                     }
                 }
 
@@ -50,36 +42,40 @@
             if(!isset($_SESSION['ID']))
             {
                 ?>
-
-                <main>
-                    <form method="post" action="index.php">
-                        <table>
-                            <tr>
-                                <td>Anmeldename:</td>
-                                <td><input type="text" name="anmeldename"></td>
-                            </tr>
-                            <tr>
-                                <td>Passwort:</td>
-                                <td><input type="password" name="passwort"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><input type="submit" name="anmelden_button" value="Anmelden"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><a href="registrieren.php">hier Registrieren</a></td>
-                            </tr>
-                        </table>
-                    </form>
-                </main> 
-              
+                <div class="container secondContainer">
+                <div class="row" id="start1">
+                    <div class="col">
+                        <main>
+                            <form method="post" action="index.php" id="login">
+                                    <table>
+                                        <tr>
+                                            <td>Anmeldename:</td>
+                                            <td><input class="form-control" type="text" name="anmeldename"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Passwort:</td>
+                                            <td><input class="form-control" type="password" name="passwort"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1"><input class="btn btn-primary" type="submit" name="anmelden_button" value="Anmelden"></td>
+                                            <td colspan="1"><a href="registration.php" class="btn btn-secondary">Hier Registrieren</a></td>
+                                        </tr>
+                                    </table>
+                            </form>
+                        </main>
                 <?php
             }
             else
             {
                 ?>
+                <div class="container secondContainer">
+                <div class="row" id="start2">
+                    <div class="col">                
                     <main>
-                        <form method="post" action="logout.php">
-                            <input type="submit" name="ausloggen_button" value="Ausloggen">
+                        <form method="post" action="logout.php" align="center" id="logout">
+                            <p align="center"><?php echo "Anmeldung Erfolgreich!"; ?></p>
+                            <a href="tippen.php" class="btn btn-info">Jetzt Tippen</a>
+                            <input class="btn btn-danger" type="submit" name="ausloggen_button" value="Ausloggen">                            
                         </form>
                     </main>
 
@@ -87,7 +83,10 @@
             }
         ?>
         </div>
+        </div>
+    </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>        
-    </body>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>       
+</div>    
+</body>
 </html>

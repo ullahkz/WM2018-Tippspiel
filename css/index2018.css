@@ -29,9 +29,39 @@ h1, h2{
 	text-align: center;
 }
 
-main{
-	width: 25%;
+div#start1, div#start2{
+	background-image: url('../images/stadium.jpg');
+	background-repeat: no-repeat;
+	/*min-height: 780px;*/
+	background-size: cover;
+}
+
+form#login, form#logout{
+	width: 50%;
 	margin: auto;
+	margin-top: 15%;
+	margin-bottom: 15%;
+	padding: 12%;
+	background-color: #000;
+	color: #FFF !important;
+	opacity: 0.8;
+}
+
+div.secondContainer{
+	min-height: 7
+}
+
+form{
+	color:#000;
+}
+
+.dpn{
+	display: none;
+}
+
+.beenden{
+	background: #fff;
+	color: #000;
 }
 
 /**/
@@ -92,8 +122,8 @@ form label {
 	text-align: center;
 }
 
-form .btn {
+/*form .btn {
 	display: block;
 	width: 100px;
 	margin: 0 auto;
-}
+}*/

@@ -7,7 +7,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="index.php">Startseite <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
@@ -17,25 +17,8 @@
         <a class="nav-link" href="spielplan.php">Spielplan</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="rankin.php">Ranking</a>
+        <a class="nav-link" href="index.php">Ranking</a>
       </li>
     </ul>
   </div>
 </nav>
-
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a href="index.php">Startseite</a>
-        </li>
-        <li class="nav-item">
-            <a href="tippen.php">Tippen</a>
-        </li>
-        <li class="nav-item">
-            <a href="index.php">Spielplan</a>
-        </li>
-        <li class="nav-item">
-            <a href="index.php">Ranking</a>
-        </li>
-    </ul>
-</nav> -->
