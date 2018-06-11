@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>WM 2018 - Tippspiel</title>
-    <?php require('header.php'); ?>
+    <?php require('header.php');?>
 </head>
 <body>
     <div class="container">
@@ -20,13 +20,6 @@
 <div class="container secondContainer">
     <div class="row" style="min-height:768px;background: #fff; padding-top: 15px;opacity: 0.85">
 <div class="col-12">
-<!--     <form method="get" action="tippen.php" id="formSort" style="display: block;height: 100px;">
-        <select name="sortieren">
-            <option value="groupsort">Nach Gruppe sortieren</option>
-            <option value="datesort">Nach Spieltag sortieren</option>
-        </select>
-        <input type="submit" name="sorting" value="Absenden">
-    </form> -->
     <form method="get" action="tippen.php" id="formSort" style="display: block;height: 50px;">    
         <div class="input-group">
           <select name="sortieren" class="custom-select" id="inputGroupSelect04">
@@ -92,15 +85,9 @@
                 <td>Datum</td>
                 <td>Uhrzeit</td>
                 <td>Heimmannschaft</td>
-                <td>Gastmannschaft</td>
-                <!-- <td>Heimmannschaft Halbzeit</td>
-                <td>Gastmannschaft Halbzeit</td> -->
-                <td>Heimmannschaft Ende</td>
-                <td>Gastmannschaft Ende</td>
-                <!-- <td>Heimmannschaft Gelb</td>
-                <td>Gastmannschaft Gelb</td>
-                <td>Heimmannschaft Rot</td>
-                <td>Gastmannschaft Rot</td> -->
+                <td>Heimmannschaft-Tor</td>
+                <td>Gastmannschaft-Tor</td>
+                <td>Gastmannschaft</td>                
             </thead>
             <?php
 
@@ -135,12 +122,16 @@
                     $datum = date_format($datumuhrzeit, "d.m.y");
                     $uhrzeit = date_format($datumuhrzeit, "H:i:s");
 
-                    $sp_dm = date_format($datumuhrzeit, "d.m.y");
-                    $now_dm = date("d.m.y");
+                    $sp_dm = strtotime($row['Datum']);
+                    
+                    $now = new DateTime(null, new DateTimeZone('Europe/London'));
+
+                    $now_dm = $now->getTimestamp();
 
                     if($now_dm > $sp_dm){
                         $flag = 'readonly';
                         $class = 'table-danger';
+
                     }
                     else{
                         $flag = '';
@@ -149,35 +140,28 @@
 
 
                     if($flag == 'readonly'){
-                        echo "<tr class='".$class."'><td>$spieleID</td><td>$spielbezeichnung</td><td>$spielort</td><td>$datum</td><td>$uhrzeit</td><td>$heimmannschaft</td><td>$gastmannschaft</td>                         
+                        echo "<tr class='".$class."'><td>$spieleID</td><td>$spielbezeichnung</td><td>$spielort</td><td>$datum</td><td>$uhrzeit</td><td>$heimmannschaft</td>                         
                             <td><p class='beenden' data-toggle='tooltip' title='Spiel beendet' align='center'>".($row2)['tippheimende']."</p></td><input class='dpn' ".$flag."  type='number' name='hme" . $i . "'  value='".($row2)['tippheimende']."'>
-                            <td><p data-toggle='tooltip' title='Spiel beendet' class='beenden' align='center'>".($row2)['tippgastende']."</p></td><td><input class='dpn' ".$flag." type='number' name='gme" . $i . "'  value='".($row2)['tippgastende']."'></td>
+                            <td><p data-toggle='tooltip' title='Spiel beendet' class='beenden' align='center'>".($row2)['tippgastende']."</p></td><td><input class='dpn' ".$flag." type='number' name='gme" . $i . "'  value='".($row2)['tippgastende']."'></td><td>$gastmannschaft</td>
                             </tr>"; 
                     }
                     else{
-                    echo "<tr class='".$class."'><td>$spieleID</td><td>$spielbezeichnung</td><td>$spielort</td><td>$datum</td><td>$uhrzeit</td><td>$heimmannschaft</td><td>$gastmannschaft</td>                         
+                    echo "<tr class='".$class."'><td>$spieleID</td><td>$spielbezeichnung</td><td>$spielort</td><td>$datum</td><td>$uhrzeit</td><td>$heimmannschaft</td>                         
                             <td><input type='number' name='hme" . $i . "'  value='".($row2)['tippheimende']."'></td>
                             <td><input type='number' name='gme" . $i . "'  value='".($row2)['tippgastende']."'></td>
+                            <td>$gastmannschaft</td>
                             </tr>";                    
                     }
 
-                    // echo "<tr><td>$spieleID</td><td>$spielbezeichnung</td><td>$spielort</td><td>$datum</td><td>$uhrzeit</td><td>$heimmannschaft</td><td>$gastmannschaft</td>                         
-                    //         <td><input type='number' name='hmhz" . $i . "' value='".$row2['tippheimhz']."'></td>
-                    //         <td><input type='number' name='gmhz" . $i . "' value='".$row2['tippgasthz']."'></td>
-                    //         <td><input type='number' name='hme" . $i . "'  value='".($row2)['tippheimende']."'></td>
-                    //         <td><input type='number' name='gme" . $i . "'  value='".($row2)['tippgastende']."'></td>
-                    //         <td><input type='number' name='hmg" . $i . "'  value='".($row2)['tippgelbeheim']."'></td>
-                    //         <td><input type='number' name='gmg" . $i . "'  value='".($row2)['tippgelbegast']."'></td>
-                    //         <td><input type='number' name='hmr" . $i . "'  value='".($row2)['tipproteheim']."'></td>
-                    //         <td><input type='number' name='gmr" . $i . "'  value='".($row2)['tipprotegast']."'></td>
-                    //         </tr>";
                     $i++;
 
-                }
+                }?>
+            <tr><td colspan="14" align="center"><input class="btn btn-dark" type="submit" value="Tipp abgeben"></td></tr>
+            <?php
             }
 
             ?>
-    <tr><td colspan="14" align="center"><input class="btn btn-dark" type="submit" value="Tipp abgeben"></td></tr>
+
     </table>
     </form>
         <?php
@@ -195,16 +179,10 @@
                 <td>Spielort</td>
                 <td>Datum</td>
                 <td>Uhrzeit</td>
-                <td>Heimmannschaft</td>
+                <td>Heimmannschaft</td>                
+                <td>Heimmannschaft-Tor</td>
+                <td>Gastmannschaft-Tor</td>
                 <td>Gastmannschaft</td>
-                <!-- <td>Heimmannschaft Halbzeit</td>
-                <td>Gastmannschaft Halbzeit</td> -->
-                <td>Heimmannschaft Ende</td>
-                <td>Gastmannschaft Ende</td>
-<!--                 <td>Heimmannschaft Gelb</td>
-                <td>Gastmannschaft Gelb</td>
-                <td>Heimmannschaft Rot</td>
-                <td>Gastmannschaft Rot</td> -->
             </tr>
             <?php
 
@@ -228,17 +206,22 @@
 
                     $spielbezeichnung = $row['Gruppe'];
                     $spielort = UTF8_encode($row['Spielort']);
-                    $datumuhrzeit = $row['Datum'];
+                    $datumuhrzeit = $row['Datum'];                    
                     $heimmannschaft = UTF8_encode($row['Heimmannschaft']);
                     $gastmannschaft = UTF8_encode($row['Gastmannschaft']);
                     $datumuhrzeit = date_create($datumuhrzeit);
+
                     $datum = date_format($datumuhrzeit, "d.m.y");
                     $uhrzeit = date_format($datumuhrzeit, "H:i:s");
 
-                    $sp_dm = date_format($datumuhrzeit, "d.m.y");
-                    $now_dm = date("d.m.y");
+                    $sp_dm = strtotime($row['Datum']);
+                    
+                    $now = new DateTime(null, new DateTimeZone('Europe/London'));
+                    // MySQL datetime format
 
-                    if($now_dm > $sp_dm){
+                    $now_dm = $now->getTimestamp();
+                    
+                    if($sp_dm < $now_dm){
                         $flag = 'readonly';
                         $class = 'table-danger';
                     }
@@ -247,27 +230,17 @@
                         $class = '';
                     }
 
-                    // echo "<tr><td>$spieleID</td><td>$spielbezeichnung</td><td>$spielort</td><td>$datum</td><td>$uhrzeit</td><td>$heimmannschaft</td><td>$gastmannschaft</td>                         
-                    //         <td><input type='number' name='hmhz" . $i . "' value='".$row2['tippheimhz']."'></td>
-                    //         <td><input type='number' name='gmhz" . $i . "' value='".$row2['tippgasthz']."'></td>
-                    //         <td><input type='number' name='hme" . $i . "'  value='".($row2)['tippheimende']."'></td>
-                    //         <td><input type='number' name='gme" . $i . "'  value='".($row2)['tippgastende']."'></td>
-                    //         <td><input type='number' name='hmg" . $i . "'  value='".($row2)['tippgelbeheim']."'></td>
-                    //         <td><input type='number' name='gmg" . $i . "'  value='".($row2)['tippgelbegast']."'></td>
-                    //         <td><input type='number' name='hmr" . $i . "'  value='".($row2)['tipproteheim']."'></td>
-                    //         <td><input type='number' name='gmr" . $i . "'  value='".($row2)['tipprotegast']."'></td>
-                    //         </tr>";
-
                     if($flag == 'readonly'){
-                        echo "<tr class='".$class."'><td>$spieleID</td><td>$spielbezeichnung</td><td>$spielort</td><td>$datum</td><td>$uhrzeit</td><td>$heimmannschaft</td><td>$gastmannschaft</td>                         
+                        echo "<tr class='".$class."'><td>$spieleID</td><td>$spielbezeichnung</td><td>$spielort</td><td>$datum</td><td>$uhrzeit</td><td>$heimmannschaft</td>                         
                             <td><p class='beenden' data-toggle='tooltip' title='Spiel beendet' align='center'>".($row2)['tippheimende']."</p></td><input class='dpn' ".$flag."  type='number' name='hme" . $i . "'  value='".($row2)['tippheimende']."'>
-                            <td><p data-toggle='tooltip' title='Spiel beendet' class='beenden' align='center'>".($row2)['tippgastende']."</p></td><td><input class='dpn' ".$flag." type='number' name='gme" . $i . "'  value='".($row2)['tippgastende']."'></td>
+                            <td><p data-toggle='tooltip' title='Spiel beendet' class='beenden' align='center'>".($row2)['tippgastende']."</p></td><td><input class='dpn' ".$flag." type='number' name='gme" . $i . "'  value='".($row2)['tippgastende']."'></td><td>$gastmannschaft</td>
                             </tr>"; 
                     }
                     else{
-                        echo "<tr class=".$class."><td>$spieleID</td><td>$spielbezeichnung</td><td>$spielort</td><td>$datum</td><td>$uhrzeit</td><td>$heimmannschaft</td><td>$gastmannschaft</td>                         
+                        echo "<tr class=".$class."><td>$spieleID</td><td>$spielbezeichnung</td><td>$spielort</td><td>$datum</td><td>$uhrzeit</td><td>$heimmannschaft</td>                         
                             <td><input ".$flag."  type='number' name='hme" . $i . "'  value='".($row2)['tippheimende']."'></td>
                             <td><input ".$flag." type='number' name='gme" . $i . "'  value='".($row2)['tippgastende']."'></td>
+                            <td>$gastmannschaft</td>
                             </tr>";                            
                     }
                     $i++;

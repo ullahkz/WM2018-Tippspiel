@@ -19,8 +19,10 @@ function gruppesortiert()
         $result = mysqli_query($conn, $sql);
         insert($result);
     }
+    require 'functions.php';
+    updateRanking();
     mysqli_close($conn);
-    header('Location: tippen.php');
+    //header('Location: tippen.php');
 }
 
 function datumsortiert()
@@ -33,6 +35,8 @@ function datumsortiert()
         $result = mysqli_query($conn, $sql);
         insert($result);
     }
+    require 'functions.php';
+    updateRanking();
     mysqli_close($conn);
     header('Location: tippen.php');
 
@@ -50,21 +54,17 @@ function insert ($result)
         $schongetippt = "SELECT * FROM tipps WHERE benutzerid = '$userID' AND spieleid = '$spieleID'";
         $result2 = mysqli_query($conn, $schongetippt);
 
-        $hmhz = $_POST['hmhz' . $i];
-        $gmhz = $_POST['gmhz' . $i];
         $hme = $_POST['hme' . $i];
         $gme = $_POST['gme' . $i];
-        $hmg = $_POST['hmg' . $i];
-        $gmg = $_POST['gmg' . $i];
-        $hmr = $_POST['hmr' . $i];
-        $gmr = $_POST['gmr' . $i];
+
+        date_default_timezone_set("Europe/London");
 
         $tippdatum = date("Y-m-d H:i:sa");
 
         if (mysqli_num_rows($result2) <= 0)
         {
-            $sql = "INSERT INTO tipps (benutzerid, spieleid, tippdatum, tippheimhz, tippgasthz, tippheimende, tippgastende, tippgelbeheim, tippgelbegast, tipproteheim, tipprotegast) 
-                VALUES ('$userID', '$spieleID', '$tippdatum', '$hmhz', '$gmhz', '$hme', '$gme', '$hmg', '$gmg', '$hmr', '$gmr')";
+            $sql = "INSERT INTO tipps (benutzerid, spieleid, tippdatum, tippheimende, tippgastende) 
+                VALUES ('$userID', '$spieleID', '$tippdatum', '$hme', '$gme')";
             if (mysqli_query($conn, $sql)) {
                 echo "<p style='background: green; color: lightgray; width: 270px; padding: 5px;'>Der Tipp wurde gespeichert!</p>";
             }
@@ -75,7 +75,7 @@ function insert ($result)
         }
         else
         {
-            $sql = "UPDATE tipps SET tippdatum = '$tippdatum', tippheimhz = '$hmhz', tippgasthz='$gmhz', tippheimende='$hme', tippgastende='$gme', tippgelbeheim='$hmg', tippgelbegast='$gmg', tipproteheim='$hmr', tipprotegast='$gmr'
+            $sql = "UPDATE tipps SET tippdatum = '$tippdatum', tippheimende='$hme', tippgastende='$gme'
                         WHERE benutzerid='$userID' AND spieleid='$spieleID'";
 
             if (mysqli_query($conn, $sql))

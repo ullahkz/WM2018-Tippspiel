@@ -61,25 +61,30 @@
                 $_SESSION['sortierart']= 'ranking';
                 $userID = $_SESSION['ID'];
 
-                $sql = "SELECT `benutzerid`, `punkte`, `anmeldename` FROM `ranking` LEFT JOIN `users` ON `ID`=`benutzerid`";
-                
+                $sql = "SELECT `benutzerid`, `punkte`, `anmeldename`, `ID` FROM `ranking` INNER JOIN `users` ON `benutzerid`=`ID` ORDER by `punkte` DESC";
+            
                 $results = mysqli_query($conn, $sql);
-                print_r($results);
+
                 $i = 1;
+
+                echo "<table class='table'><tr><td>User Name</td><td>ID</td><td>Punkte</td><td>Ranking</td></tr>";
 
                 while ($row = mysqli_fetch_assoc($results))
                 {
-                    print_r($row);                 
+
                     $benutzername = $row['anmeldename'];
                     $benutzerid = $row['benutzerid'];
                     $punkte = $row['punkte'];
-
-
-                    echo "<tr><td>$benutzername</td><td>$benutzerid</td><td>$punkte</td></tr>";                    
-
-                    $i++;
-
+                    if($benutzerid == $userID){
+                        echo "<tr class='table-primary'><td>$benutzername</td><td>$benutzerid</td><td>$punkte</td><td>".$i."</td></tr>";
+                    }
+                    else{
+                        echo "<tr><td>Benutzer</td><td>$benutzerid</td><td>$punkte</td><td>".$i."</td></tr>";   
+                    }
+                    $i++;                   
                 }
+
+                echo "</table>";
             }    
     ?>
         

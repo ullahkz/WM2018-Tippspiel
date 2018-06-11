@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = "wm2018";
 
 // Create connection

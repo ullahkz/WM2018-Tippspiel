@@ -17,7 +17,7 @@
         <a class="nav-link" href="spielplan.php">Spielplan</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="index.php">Ranking</a>
+        <a class="nav-link" href="ranking.php">Ranking</a>
       </li>
     </ul>
   </div>

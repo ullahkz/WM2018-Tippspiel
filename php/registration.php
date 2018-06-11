@@ -63,7 +63,7 @@
         ?>                                    
                                     <table>
                                         <tr>
-                                            <td>Anmeldename:</td><td><input class="form-control" type="text" name="anmeldename"></td>
+                                            <td>Anmeldename:</td><td><input class="form-control" type="email" name="anmeldename" required></td>
                                         </tr>
                                         <tr>
                                             <td>Vorname:</td><td><input class="form-control" type="text" name="vorname"></td>
